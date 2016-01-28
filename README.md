@@ -120,6 +120,29 @@ end
 Note that the ActiveRecord model `Post` must already exist and have a `translates`
 directive listing the translated fields.
 
+### UUIDs
+
+You can make the primary and foreign keys on the translation table UUIDs by
+passing in set_id: false and uuid: 'name_of_primary_key_column' in the options
+hash when creating the table. 
+
+```ruby
+class CreatePosts < ActiveRecord::Migration
+  def up
+    create_table :posts do |t|
+      t.timestamps
+    end
+    Post.create_translation_table!(:title => :string,
+      :text => {:type => :text, :null => false, :default => 'abc'}, 
+      { :set_id => false, :uuid => :id })
+  end
+  def down
+    drop_table :posts
+    Post.drop_translation_table!
+  end
+end
+```
+
 ## Migrating existing data to and from the translated version
 
 As well as creating a translation table, you can also use `create_translation_table!`
