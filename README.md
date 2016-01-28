@@ -120,7 +120,7 @@ end
 Note that the ActiveRecord model `Post` must already exist and have a `translates`
 directive listing the translated fields.
 
-### UUIDS
+### UUIDs
 
 You can make the primary and foreign keys on the translation table UUIDs by
 passing in set_id: false and uuid: 'name_of_primary_key_column' in the options
