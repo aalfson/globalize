@@ -71,8 +71,10 @@ module Globalize
         end
 
         def create_translation_table(options)
+          # options[:set_id] must be false if you want to use uuids
           connection.create_table(translations_table_name, id: options[:set_id]) do |t|
 
+            # Options[:uuid] specifies the name of the primary key (usually :id)
             if (options[:uuid])
               t.uuid "#{table_name.sub(/^#{table_name_prefix}/, '').singularize}_id".to_sym, :null => false
               t.uuid options[:uuid].to_sym
